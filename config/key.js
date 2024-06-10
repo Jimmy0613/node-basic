@@ -1,5 +1,12 @@
+import mongoURI_dev from './dev.js';
+import mongoURI_prod from './prod.js';
+
+let MONGO_URI;
+
 if (process.env.NODE_ENV === 'production') {
-    module.exports = require('./prod');
+    MONGO_URI = mongoURI_prod;
 } else {
-    module.exports = require('./dev');
+    MONGO_URI = mongoURI_dev;
 }
+
+export default MONGO_URI;

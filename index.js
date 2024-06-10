@@ -1,20 +1,22 @@
-const express = require('express')
+import express from 'express';
+import pkg from 'body-parser';
+import MONGO_URI from './config/key.js';
+import { connect } from 'mongoose';
+import User from './models/User.js';
+
+const { urlencoded, json } = pkg;
+
 const app = express()
 const port = 5000
-const bodyParser = require('body-parser');
-const config = require('./config/key');
-
-const { User } = require('./models/User');
+const mongoUri = MONGO_URI;
 
 //application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(urlencoded({extended: true}));
 
 //application/json
-app.use(bodyParser.json());
+app.use(json());
 
-const mongoose = require('mongoose')
-mongoose.connect(config.mongoURI, {
-}).then(() => console.log('MongoDB Connected...'))
+connect(mongoUri, {}).then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err))
 
 
